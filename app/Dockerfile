@@ -20,12 +20,10 @@ RUN locale-gen en_US en_US.UTF-8
 
 
 
-# RUN apt-get install -qqy git
-RUN fakeroot apt-get install -qqy openjdk-7-jdk
+RUN apt-get install -qqy openjdk-7-jdk-headless
 RUN wget --progress=bar:force http://mirrored-packages.s3-website-us-west-1.amazonaws.com/packages/solr-4.2.0.tgz
 RUN tar --extract --file solr-4.2.0.tgz -C /opt
 RUN mv /opt/solr-4.2.0 /opt/solr
-# RUN rm -rf /opt/solr/example/solr
 ADD ./solr_data /var/lib/solr/solr
 ADD ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN echo 'root:root' | chpasswd

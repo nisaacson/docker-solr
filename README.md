@@ -8,7 +8,7 @@ Builds a docker image for `solr-4.2.0`
 
 ```bash
 # start a solo solr server
-vagrant up alpha --provision
+vagrant up --provision
 ```
 
 Open your browser to `http://localhost:8983/solr/`. You should see the Apache Solr admin page.
@@ -26,7 +26,7 @@ To launch the vagrant virtual machine
 
 ```bash
 cd /path/to/this/repo
-vagrant up alpha
+vagrant up
 ```
 
 Once the virtual machine is running you can test out the `Dockerfile` via
@@ -54,14 +54,14 @@ curl "http://localhost:8983"
 
 # You can connect to the running container via the mapped ssh port
 # password: root
-ssh -p 2222 root@localhost
+ssh -p 1111 root@localhost
 ```
 
 # Notes
 
 To use a custom solr data configuration and data folder, use the [volumes](http://docs.docker.io/en/latest/use/working_with_volumes/) feature of docker to mount the solr data folder inside the container at `/var/lib/solr/solr`.
 
-The initial usage example of `vagrant up alpha --provision` actually uses the volumes feature to mount the custom config located at `./app/solr_data` in the docker solr container.
+The initial usage example of `vagrant up --provision` actually uses the volumes feature to mount the custom config located at `./app/solr_data` in the docker solr container.
 
 ```bash
 # volumes
@@ -71,11 +71,8 @@ CONTAINER_SOLR_VOLUME=/var/lib/solr/solr # Hard coded in ./app/supervisord.conf
 # ports
 HOST_SSH_PORT=1111
 CONTAINER_SSH_PORT=22
-
-HOST_SOLR_PORT=1111
-CONTAINER_SOLR_PORT=22
-
-
+HOST_SOLR_PORT=8983
+CONTAINER_SOLR_PORT=8983
 
 docker run \
   -d # detached
